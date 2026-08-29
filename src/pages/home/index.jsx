@@ -2,7 +2,20 @@
 // Bangla landing page — Rajshahi City edition.
 // Hero (split layout + floating CV mockup) + trust marquee + how-it-works +
 // subjects + stats + testimonial + gradient CTA band + rich footer.
-// Uses Google Fonts "Baloo Da 2" (display) + "Hind Siliguri" (body), loaded at runtime.
+//
+// Fonts: "Baloo Da 2" (display) + "Hind Siliguri" (body), self-hosted via
+// @fontsource (no runtime Google Fonts request). Make sure these are
+// imported once in your app entry (e.g. main.jsx):
+//
+//   import "@fontsource/baloo-da-2/500.css";
+//   import "@fontsource/baloo-da-2/600.css";
+//   import "@fontsource/baloo-da-2/700.css";
+//   import "@fontsource/baloo-da-2/800.css";
+//   import "@fontsource/hind-siliguri/400.css";
+//   import "@fontsource/hind-siliguri/500.css";
+//   import "@fontsource/hind-siliguri/600.css";
+//   import "@fontsource/hind-siliguri/700.css";
+//
 // Swap the <a href> tags for React Router <Link> if this sits inside a router.
 // Zero extra dependencies — all icons are inline SVG.
 //
@@ -13,21 +26,6 @@
 // mentions getting in touch — no "call/email them directly" language.
 
 import { useEffect, useRef, useState } from "react";
-
-// ---------------------------------------------------------------------------
-// Fonts (Bangla) — injected once on mount so this file stays a drop-in component.
-// ---------------------------------------------------------------------------
-function useBanglaFonts() {
-  useEffect(() => {
-    if (document.getElementById("tk-fonts")) return;
-    const link = document.createElement("link");
-    link.id = "tk-fonts";
-    link.rel = "stylesheet";
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap";
-    document.head.appendChild(link);
-  }, []);
-}
 
 // ---------------------------------------------------------------------------
 // Scroll-reveal hook
@@ -296,7 +294,26 @@ const Icon = {
       <path d="M8 10V7a4 4 0 0 1 8 0v3" />
     </svg>
   ),
+  phone: (p) => (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...p}
+    >
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92Z" />
+    </svg>
+  ),
 };
+
+// Fixed admin contact number — shown directly on the homepage (unlike a
+// tutor's own number, which is never exposed). English digits, country
+// code, no leading 0, for the wa.me link: 01723939836 -> 8801723939836.
+const ADMIN_PHONE_DISPLAY = "01723939836";
+const ADMIN_WHATSAPP = "8801723939836";
 
 // ---------------------------------------------------------------------------
 // Content — scoped to Rajshahi City
@@ -384,7 +401,6 @@ const RAJSHAHI_AREAS = [
 ];
 
 export default function HomePage() {
-  useBanglaFonts();
   const scrolled = useScrolled();
   const [audience, setAudience] = useState("guardian");
   const [howRef, howInView] = useInView();
@@ -463,8 +479,13 @@ export default function HomePage() {
         @keyframes tk-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
         .tk-glow { box-shadow: 0 30px 80px -20px rgba(31,42,94,0.35); }
         .tk-nav { transition: box-shadow 0.3s ease, background-color 0.3s ease; }
+        .tk-wa-pulse { animation: tk-wa-pulse 2.4s ease-in-out infinite; }
+        @keyframes tk-wa-pulse {
+          0%, 100% { box-shadow: 0 10px 24px -8px rgba(37,211,102,0.55), 0 0 0 0 rgba(37,211,102,0.45); }
+          50% { box-shadow: 0 10px 24px -8px rgba(37,211,102,0.55), 0 0 0 10px rgba(37,211,102,0); }
+        }
         @media (prefers-reduced-motion: reduce) {
-          .tk-marker, .tk-marker-circle, .tk-fade-up, .tk-stagger, .tk-float, .tk-float-slow, .tk-marquee-track {
+          .tk-marker, .tk-marker-circle, .tk-fade-up, .tk-stagger, .tk-float, .tk-float-slow, .tk-marquee-track, .tk-wa-pulse {
             animation: none !important; transition: none !important; opacity: 1 !important; transform: none !important; stroke-dashoffset: 0 !important;
           }
         }
@@ -589,6 +610,28 @@ export default function HomePage() {
             >
               আগে থেকেই সিভি আছে? পিন দিয়ে এডিট করুন →
             </a>
+
+            <div
+              className="tk-fade-up mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start"
+              style={{ animationDelay: "500ms" }}
+            >
+              <a
+                href={`https://wa.me/${ADMIN_WHATSAPP}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="tk-wa-pulse flex w-full items-center justify-center gap-2.5 rounded-full bg-[#25D366] px-7 py-3.5 text-sm font-bold text-white shadow-lg shadow-[#25D366]/50 transition-transform hover:-translate-y-0.5 sm:w-auto"
+              >
+                <Icon.whatsapp className="h-5 w-5" /> হোয়াটসঅ্যাপে মেসেজ করুন
+              </a>
+              <a
+                href={`tel:+${ADMIN_WHATSAPP}`}
+                className="inline-flex items-center gap-2 rounded-full bg-[color:var(--ink)] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-transform hover:-translate-y-0.5"
+              >
+                <Icon.phone className="h-4 w-4 text-white" />
+                <span className="text-white">{ADMIN_PHONE_DISPLAY}</span>
+                <span className="text-white/70">· Click to Call</span>
+              </a>
+            </div>
           </div>
 
           {/* Right: floating CV mockup — deliberately shows no phone/email,
@@ -714,9 +757,7 @@ export default function HomePage() {
       <section ref={subjectsRef} className="px-5 py-20">
         <div className="mx-auto max-w-5xl text-center">
           <h2 className="text-2xl font-bold sm:text-3xl">ক্লাস ১ থেকে এইচএসসি — সব বিষয়েই টিউটর পাবেন</h2>
-          <p className="mt-3 text-[color:var(--ink-soft)]">
-            প্রতিটি ক্লাস ও গ্রুপের জন্য আলাদা টিউটর প্রোফাইল
-          </p>
+          <p className="mt-3 text-[color:var(--ink-soft)]">প্রতিটি ক্লাস ও গ্রুপের জন্য আলাদা টিউটর প্রোফাইল</p>
 
           <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2">
             {SUBJECT_GROUPS.map((group, gi) => (
@@ -799,8 +840,8 @@ export default function HomePage() {
         >
           <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-[color:var(--marigold)]/25 blur-3xl" />
           <div className="pointer-events-none absolute -bottom-16 -left-16 h-64 w-64 rounded-full bg-[color:var(--leaf)]/25 blur-3xl" />
-          <p className="tk-display relative text-2xl font-bold sm:text-3xl">আজই যুক্ত হোন টিউশন খাতায়</p>
-          <p className="relative mx-auto mt-3 max-w-xl text-sm text-white/80 sm:text-base">
+          <p className="tk-display text-black relative text-2xl font-bold sm:text-3xl">আজই যুক্ত হোন টিউশন খাতায়</p>
+          <p className="relative mx-auto mt-3 max-w-xl text-sm text-black sm:text-base">
             রাজশাহী শহরের শত শত অভিভাবক ও টিউটর ইতিমধ্যে খুঁজে পেয়েছেন তাদের সঠিক জুটি — আপনিও শুরু করুন এখনই, সম্পূর্ণ
             বিনামূল্যে।
           </p>

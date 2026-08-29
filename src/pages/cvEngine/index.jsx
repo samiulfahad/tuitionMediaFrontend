@@ -7,6 +7,18 @@
 // Also includes brand-matched skeleton loading in place of plain "Loading..." text.
 // Success/error feedback for create, edit, and delete now goes through the
 // shared <Popup /> component instead of inline banners.
+//
+// Fonts: "Baloo Da 2" (display) + "Hind Siliguri" (body), self-hosted via
+// @fontsource and imported once in the app entry (main.jsx):
+//
+//   import "@fontsource/baloo-da-2/500.css";
+//   import "@fontsource/baloo-da-2/600.css";
+//   import "@fontsource/baloo-da-2/700.css";
+//   import "@fontsource/baloo-da-2/800.css";
+//   import "@fontsource/hind-siliguri/400.css";
+//   import "@fontsource/hind-siliguri/500.css";
+//   import "@fontsource/hind-siliguri/600.css";
+//   import "@fontsource/hind-siliguri/700.css";
 
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -31,22 +43,6 @@ import tutorCvApi from "../../api/tutorCv";
 import Popup from "../../components/Popup"; // adjust path to wherever Popup.jsx lives in your project
 
 const GENDER_OPTIONS = ["male", "female", "other"];
-
-// ---------------------------------------------------------------------------
-// Fonts (shared with HomePage) — injected once so this page matches even if
-// it's the first page a visitor lands on.
-// ---------------------------------------------------------------------------
-function useBanglaFonts() {
-  useEffect(() => {
-    if (document.getElementById("tk-fonts")) return;
-    const link = document.createElement("link");
-    link.id = "tk-fonts";
-    link.rel = "stylesheet";
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap";
-    document.head.appendChild(link);
-  }, []);
-}
 
 // ---------------------------------------------------------------------------
 // Signature motif (same hand-drawn marker used on the homepage hero)
@@ -1257,7 +1253,6 @@ function ManageFlow({ meta, institutes }) {
 // Main export: tabbed page hosting both flows, sharing one meta/institutes fetch
 // ---------------------------------------------------------------------------
 export default function CVEngine() {
-  useBanglaFonts();
   const navigate = useNavigate();
   const location = useLocation();
 

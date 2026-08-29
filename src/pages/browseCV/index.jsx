@@ -5,6 +5,18 @@
 // button below routes to a fixed admin number (not the tutor's own number),
 // carrying the tutor's short public cvId + education summary so the admin
 // team can trace them in the tutor_cvs collection (never the raw Mongo _id).
+//
+// Fonts: "Baloo Da 2" (display) + "Hind Siliguri" (body), self-hosted via
+// @fontsource and imported once in the app entry (main.jsx):
+//
+//   import "@fontsource/baloo-da-2/500.css";
+//   import "@fontsource/baloo-da-2/600.css";
+//   import "@fontsource/baloo-da-2/700.css";
+//   import "@fontsource/baloo-da-2/800.css";
+//   import "@fontsource/hind-siliguri/400.css";
+//   import "@fontsource/hind-siliguri/500.css";
+//   import "@fontsource/hind-siliguri/600.css";
+//   import "@fontsource/hind-siliguri/700.css";
 
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -29,18 +41,6 @@ function WhatsAppIcon(props) {
       <path d="M16.004 3C9.377 3 4 8.373 4 15c0 2.393.703 4.62 1.918 6.49L4 29l7.72-1.879A11.94 11.94 0 0 0 16.004 27C22.63 27 28 21.627 28 15S22.63 3 16.004 3Zm0 21.75a9.7 9.7 0 0 1-4.95-1.356l-.355-.21-4.583 1.115 1.148-4.463-.232-.365A9.66 9.66 0 0 1 6.25 15c0-5.38 4.375-9.75 9.754-9.75 5.38 0 9.746 4.37 9.746 9.75s-4.367 9.75-9.746 9.75Zm5.34-7.297c-.293-.147-1.734-.857-2.003-.955-.269-.098-.464-.147-.66.147-.196.293-.756.955-.928 1.152-.171.196-.342.22-.635.073-.293-.147-1.236-.456-2.354-1.454-.87-.776-1.457-1.735-1.629-2.028-.171-.293-.018-.451.129-.597.132-.132.293-.343.44-.514.147-.171.196-.293.293-.489.098-.196.049-.367-.024-.514-.073-.147-.66-1.593-.905-2.183-.238-.573-.481-.495-.66-.504l-.562-.01c-.196 0-.514.073-.783.367-.269.293-1.026 1.003-1.026 2.448 0 1.445 1.05 2.842 1.196 3.038.147.196 2.067 3.155 5.008 4.424.7.302 1.246.483 1.672.618.702.223 1.342.191 1.848.116.564-.084 1.734-.708 1.979-1.392.244-.684.244-1.27.171-1.392-.073-.122-.269-.196-.562-.343Z" />
     </svg>
   );
-}
-
-function useBanglaFonts() {
-  useEffect(() => {
-    if (document.getElementById("tk-fonts")) return;
-    const link = document.createElement("link");
-    link.id = "tk-fonts";
-    link.rel = "stylesheet";
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap";
-    document.head.appendChild(link);
-  }, []);
 }
 
 const GROUP_LABELS_BN = { science: "বিজ্ঞান", commerce: "বাণিজ্য", arts: "মানবিক" };
@@ -508,7 +508,6 @@ function FilterBar({ meta, institutes, filters, updateFilter, selectedLevel, ava
 // Main page
 // ---------------------------------------------------------------------------
 export default function BrowseCV() {
-  useBanglaFonts();
   const navigate = useNavigate();
 
   const [meta, setMeta] = useState(null);
