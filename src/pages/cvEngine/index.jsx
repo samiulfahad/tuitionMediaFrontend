@@ -1339,26 +1339,6 @@ export default function CVEngine() {
       `}</style>
 
       <div className="mx-auto max-w-3xl">
-        <div className="mb-6 flex items-center justify-between gap-4">
-          <a href="/" className="flex items-center gap-2 sm:gap-2.5">
-            <span className="grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-[color:var(--marigold)] to-[color:var(--leaf)] text-white shadow-sm sm:h-9 sm:w-9">
-              <GraduationCap className="h-4 w-4 sm:h-5 sm:w-5" />
-            </span>
-            <span className="tk-display hidden text-base font-bold text-[color:var(--ink)] sm:inline">টিউশন খাতা</span>
-          </a>
-
-          <ModeTabs mode={mode} onChange={setMode} />
-
-          <button
-            type="button"
-            onClick={() => navigate(-1)}
-            className="inline-flex flex-shrink-0 items-center gap-1.5 rounded-full border border-[color:var(--ink)]/15 bg-white px-3.5 py-1.5 text-xs font-semibold text-[color:var(--ink-soft)] shadow-sm transition-colors hover:border-[color:var(--marigold)]/50 hover:text-[color:var(--ink)]"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" />
-            Back
-          </button>
-        </div>
-
         {loadError && (
           <p className="mb-5 flex items-center gap-2 rounded-xl bg-[color:var(--margin-red)]/10 p-3 text-sm text-[color:var(--margin-red)]">
             <AlertCircle className="h-4 w-4 flex-shrink-0" /> {loadError}
