@@ -202,7 +202,7 @@ export default function HomePage() {
         <div className="pointer-events-none absolute -right-32 top-0 h-96 w-96 rounded-full bg-[color:var(--marigold)]/20 blur-3xl" />
         <div className="pointer-events-none absolute -left-24 bottom-0 h-80 w-80 rounded-full bg-[color:var(--leaf)]/15 blur-3xl" />
 
-        <div className="mx-auto grid max-w-4xl grid-cols-1 items-center gap-16 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="mx-auto grid max-w-5xl grid-cols-1 items-center gap-16 lg:grid-cols-[1.05fr_0.95fr]">
           {/* Left: copy */}
           <div className="text-center lg:text-left">
             <span className="tk-fade-up inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-sm font-medium text-[color:var(--ink-soft)] shadow-sm">
