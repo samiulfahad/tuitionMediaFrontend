@@ -2,10 +2,6 @@ import { Link } from "react-router-dom";
 import { GraduationCap } from "lucide-react";
 import WhatsAppIcon from "../WhatsAppIcon";
 
-const RAJSHAHI_AREAS = [
-  "শাহেব বাজার", "বোয়ালিয়া", "রাজপাড়া", "উপশহর",
-  "সাহেববাজার", "কাজলা", "বিনোদপুর", "লক্ষ্মীপুর",
-];
 
 export default function Footer() {
   return (
@@ -22,14 +18,7 @@ export default function Footer() {
             রাজশাহী শহরের অভিভাবক ও শিক্ষার্থীদের সঠিক গৃহশিক্ষক খুঁজে পাওয়ার সবচেয়ে সহজ মাধ্যম।
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
-            {RAJSHAHI_AREAS.slice(0, 5).map((area) => (
-              <span
-                key={area}
-                className="rounded-full bg-[color:var(--ink)]/5 px-3 py-1 text-xs font-medium text-[color:var(--ink-soft)]"
-              >
-                {area}
-              </span>
-            ))}
+          
           </div>
         </div>
 
